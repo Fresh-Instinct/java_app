@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  tomcat:
+    image: tomcat
+    container_name: my-custom-tomcat
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./dptweb-1.0.war:/usr/local/tomcat/webapps/mywebapps.war
+      - ./tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml:ro
+  nginx:
+    image: nginx
+    container_name: my-custom-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - tomcat
+  mysql:
+    image: docker.io/mysql
+    container_name: my-custom-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+      MYSQL_DATABASE: UserDB
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d
+
