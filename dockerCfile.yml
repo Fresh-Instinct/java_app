@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   tomcat:
-    image: tomcat
+    image: docker.io/amazonlinux
     container_name: my-custom-tomcat
     ports:
       - "8080:8080"
@@ -9,7 +9,7 @@ services:
       - ./dptweb-1.0.war:/usr/local/tomcat/webapps/mywebapps.war
       - ./tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml:ro
   nginx:
-    image: nginx
+    image: docker.io/nginx
     container_name: my-custom-nginx
     ports:
       - "80:80"
